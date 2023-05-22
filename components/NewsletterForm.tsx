@@ -4,15 +4,15 @@ import { getPlaneKeyframes } from "@/lib/getPlaneKeyframes";
 import { getTrailsKeyframes } from "@/lib/getTrailsKeyframes";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { log } from "console";
+
 import { gsap } from "gsap";
 import { FormEvent, useRef, useState } from "react";
 
 function NewsletterForm() {
     const [input, setInput] = useState("");
-    // const [successMessage, setSuccessMessage] =
-    //     useState<MembersSuccessResponse>();
-    // const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] =
+        useState<MembersSuccessResponse>();
+    const [errorMessage, setErrorMessage] = useState("");
     const [active, setActive] = useState(false);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const { to, fromTo, set } = gsap;
@@ -42,24 +42,24 @@ function NewsletterForm() {
             method: "POST",
         });
         const data = await res.json();
-        
-        console.log(data, "date");
-        
-        // if (data.error) {
-        //     setErrorMessage("Hey, you are already subscribed!");
-        //     setSuccessMessage(undefined);
-        //     return;
-        // }
-        
 
-        // setSuccessMessage(data.res);
-        // setErrorMessage("");
+        console.log(data, "date");
+
+        if (data.error) {
+            setErrorMessage("Hey, you are already subscribed!");
+            setSuccessMessage(undefined);
+            return;
+        }
+
+
+        setSuccessMessage(data.res);
+        setErrorMessage("");
     };
 
-    // const dismissMessages = () => {
-    //     setSuccessMessage(undefined);
-    //     setErrorMessage("");
-    // };
+    const dismissMessages = () => {
+        setSuccessMessage(undefined);
+        setErrorMessage("");
+    };
 
     return (
         <div className="flex flex-col space-y-8 md:w-[400px]">
@@ -103,7 +103,7 @@ function NewsletterForm() {
                 </div>
             </form>
 
-            {/* <div className="relative">
+            <div className="relative">
                 {(successMessage || errorMessage) && (
                     <div className="flex items-start space-x-2 bg-[#0A0E12] shadow-outline-gray text-white rounded-[9px] py-4 px-6 animate-fade-bottom absolute">
                         <div className="h-6 w-6 bg-[#1B2926] flex items-center justify-center rounded-full border border-[#273130] flex-shrink-0">
@@ -131,7 +131,7 @@ function NewsletterForm() {
                         />
                     </div>
                 )}
-            </div> */}
+            </div>
         </div>
     );
 }

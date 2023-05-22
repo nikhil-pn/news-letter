@@ -1,4 +1,5 @@
 import NewsletterForm from "@/components/NewsletterForm";
+import Socials from "@/components/Socials";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
        bg-gradient-to-r from-purple-300 to-purple-800 animate-fade-in-3">H3lios Blockchain Launch</h1>
       </div>
       <NewsletterForm></NewsletterForm>
+      <Socials></Socials>
     </main>
   )
 }
